@@ -134,6 +134,14 @@ h2 {
     box-shadow: rgb(42 18 206 / 90%) 0 0 22px 6px;
 }
 
+.button:hover {
+	background-color: antiquewhite;
+	cursor: pointer;	
+}
+
+.button:active {
+	background-color: rgb(143, 141, 141);
+}
 
 
 /***************/

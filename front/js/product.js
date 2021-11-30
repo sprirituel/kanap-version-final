@@ -49,6 +49,7 @@ function createArticle(value) {
 
   let productDescription = document.createElement("p");
   productDescription.classList.add("product-description");
+  
 
   description.appendChild(productDescription).textContent = value.description;
 

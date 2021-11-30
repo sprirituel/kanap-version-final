@@ -59,7 +59,28 @@ function createCart (produitDansLocalStorage) {
             // Quantité
 
             let quantity = document.createElement("p");
-            cartItemContentSettingsQuantity.appendChild(quantity).textContent = "Qté : " + produitDansLocalStorage[i].quantite;
+            cartItemContentSettingsQuantity.appendChild(quantity).textContent = "Qté : "
+
+            //choix quantité
+
+            let productQuantity = document.createElement("input");
+            cartItemContentSettingsQuantity.appendChild(productQuantity);
+            productQuantity.className = "itemQuantity";
+            productQuantity.setAttribute("type", "number");
+            productQuantity.setAttribute("min", "1");
+            productQuantity.setAttribute("max", "100");
+            productQuantity.setAttribute("name", "item_quantity");
+            productQuantity.value = produitDansLocalStorage[i].quantite;
+            productQuantity.setAttribute("id", "qtt")
+
+            //Bouton modifier la quantité
+
+            let button = document.createElement("input")
+            button.setAttribute('type', 'button');
+            button.classList.add("button")
+
+            cartItemContentSettingsQuantity.appendChild(button).value ="Changer la quantité";
+
 
             // div supprimer
 
@@ -97,7 +118,7 @@ function createCart (produitDansLocalStorage) {
                 //IMG
                 let articleImg = document.createElement("img");
                 articleImg.classList.add("article-Img");
-                articleImg = new Image (300, 150);
+                articleImg = new Image (300, 300);
                 articleImg.src = divImg.appendChild(articleImg).imgContent = value.imageUrl;
 
                 //Nom du produit
@@ -150,15 +171,36 @@ if (produitDansLocalStorage != null) {
     }
 }
 
+
+ //bouton modifier quantité
+
+let btnQuantité = document.querySelectorAll(".button");
+let modifyQtt = document.querySelectorAll(".itemQuantity");
+var articlesLocalStorage = JSON.parse(localStorage.getItem("produits")); // <<< on recupère le localStorage
+for (let l = 0; l < modifyQtt.length; l++) {
+    btnQuantité[l].addEventListener("click" , (event) => {
+
+        let qttModifValue = modifyQtt[l].valueAsNumber;
+
+        articlesLocalStorage[l].quantite = qttModifValue;
+
+        localStorage.setItem("produits", JSON.stringify(articlesLocalStorage));
+
+        window.location.reload(true);
+
+    })
+}
+
+
  // bouton supprimer 
 
 const btnSupprimer = document.getElementsByClassName("deleteItem");
-var articlesLocalStorage = JSON.parse(localStorage.getItem("produits")); // <<< on recupère le localStorage
+//var articlesLocalStorage = JSON.parse(localStorage.getItem("produits")); // <<< on recupère le localStorage
     
 for (let j = 0; j < btnSupprimer.length; j++) {
     btnSupprimer[j].addEventListener("click" , (event) => {
 
-        var elementSupprimer = articlesLocalStorage.splice(j, 1);
+        var elementSupprimer = articlesLocalStorage.splice(j, 1); // on supprime en partant de l'élément J, et on supprime 1 élément
         localStorage.setItem("produits", JSON.stringify(articlesLocalStorage));
         window.location.reload(true);
     })
